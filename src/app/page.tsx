@@ -59,7 +59,7 @@ export default function ComingSoon() {
                     } else {
                       alert("Something went wrong. Please try again.");
                     }
-                  } catch (error) {
+                  } catch {
                     alert("An error occurred. Please try again.");
                   }
                 } else {
