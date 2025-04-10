@@ -78,7 +78,7 @@ export default function ComingSoon() {
         transition={{ delay: 1, duration: 0.8 }}
         className="mt-12 text-center text-sm"
       >
-        <p>© {new Date().getFullYear()} Queersource. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Thomas King. All rights reserved.</p>
       </motion.footer>
     </div>
   );
