@@ -12,10 +12,10 @@ export default function ComingSoon() {
         className="text-center"
       >
         <Image
-          src="/logo.svg"
+          src="/Queersource.svg"
           alt="Queersource Logo"
-          width={120}
-          height={120}
+          width={360}
+          height={360}
           className="mb-6"
         />
         <h1 className="text-4xl sm:text-6xl font-bold mb-4">Queersource</h1>
