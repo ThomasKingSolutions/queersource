@@ -15,6 +15,12 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Queersource",
   description: "A safe space for queer teens & adults to find resources, support, and community.",
+  // Use /Queersource.svg as the favicon
+  icons: {
+    icon: "/Queersource.svg",
+    shortcut: "/Queersource.svg",
+    apple: "/Queersource.svg",
+  },
 };
 
 export default function RootLayout({
