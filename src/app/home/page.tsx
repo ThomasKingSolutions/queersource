@@ -1,220 +1,311 @@
+"use client";
 import React from "react";
 import Image from "next/image";
-import { IoMdHeartEmpty  } from "react-icons/io";
+import { motion } from "framer-motion";
+import { IoMdHeartEmpty } from "react-icons/io";
 import { FiBookmark, FiBookOpen, FiUsers } from "react-icons/fi";
 import { IoShieldOutline } from "react-icons/io5";
 import { AiFillContacts } from "react-icons/ai";
+import Navbar from "@/components/Navbar";
+import Button from "@/components/Button";
+import Card from "@/components/Card";
 
+const fadeIn = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.5 } },
+  exit: { opacity: 0, transition: { duration: 0.5 } },
+};
 
+const slideUp = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" } },
+  exit: { opacity: 0, y: 20, transition: { duration: 0.7, ease: "easeIn" } },
+};
 
+const scaleUp = {
+  initial: { scale: 0.9, opacity: 0 },
+  animate: { scale: 1, opacity: 1, transition: { duration: 0.6, ease: "easeOut" } },
+  exit: { scale: 0.9, opacity: 0, transition: { duration: 0.6, ease: "easeIn" } },
+};
 
 export default function QueersourceHome() {
+
+  const [showCustomAlert, setShowCustomAlert] = React.useState(false);
   return (
-    <main className="font-sans text-gray-800">
-      <nav className="bg-white shadow-md p-4">
-        <section className="flex flex-wrap justify-between items-center gap-y-4">
-          <section className="flex items-center gap-2">
-            <IoMdHeartEmpty className="text-pink-600 text-2xl" />
-            <span className="text-2xl font-bold text-black">Queersource</span>
-          </section>
+    <motion.main
+      className="font-sans text-gray-800 bg-white"
+      initial="initial"
+      animate="animate"
+      exit="exit"
+    >
+      <Navbar />
 
-          <section className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-gray-800">
-            <a href="#services" className="hover:text-pink-600">Services</a>
-            <a href="#resources" className="hover:text-pink-600">Resources</a>
-            <a href="#community" className="hover:text-pink-600">Community</a>
-            <a href="#get-involved" className="hover:text-pink-600">Get Involved</a>
-          </section>
-
-          <section className="flex flex-wrap gap-2">
-            <button className="bg-white border border-gray-300 px-4 py-2 rounded-md text-sm">
-              Log In
-            </button>
-            <button className="bg-pink-600 text-white font-semibold px-4 py-2 rounded-md text-sm">
-              Get Help Now
-            </button>
-          </section>
-        </section>
-      </nav>
-
-      <section className="flex flex-col-reverse md:flex-row justify-between items-center bg-[linear-gradient(0deg,rgba(255,255,255,1)_0%,rgba(255,235,242,1)_70%)] p-10">
-        <section className="text-center md:text-left py-10 md:py-20 px-6 md:pr-10">
-          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-black">
+      <motion.section
+        className="w-full flex flex-col-reverse md:flex-row items-center justify-center bg-gradient-to-b from-white via-[#fff0f7] to-[#fcedf3] py-16 md:py-28 px-4"
+        variants={fadeIn}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <section className="md:w-1/2 text-center md:text-left flex flex-col items-center md:items-start gap-6">
+          <motion.h1
+            className="text-4xl md:text-6xl font-extrabold mb-2 text-pink-700 drop-shadow-sm"
+            variants={slideUp}
+          >
             Support for the LGBTQ+ Community
-          </h1>
-          <p className="text-lg md:text-xl max-w-2xl mb-8 text-gray-600 mx-auto md:mx-0">
+          </motion.h1>
+          <motion.p
+            className="text-lg md:text-2xl max-w-2xl mb-4 text-gray-700"
+            variants={slideUp}
+          >
             Queersource provides resources, support, and community for LGBTQ+ teens and adults who need help. You are not alone.
-          </p>
-          <section className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <button className="bg-pink-600 text-white font-semibold px-6 py-3 rounded-md">
-              Get Support Now
-            </button>
-            <button className="bg-white border border-gray-300 px-6 py-3 rounded-md">
-              Browse Resources
-            </button>
-          </section>
+          </motion.p>
+          <motion.section
+            className="flex flex-wrap gap-4 justify-center md:justify-start"
+            variants={slideUp}
+          >
+            <Button text="Get Support Now" primary onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} />
+            <Button text="Browse Resources" onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })} />
+          </motion.section>
         </section>
 
-        <Image
-          src="/400x400Picture.svg"
-          alt="400x400"
-          width={400}
-          height={400}
-          className="mb-10 md:mb-0 max-w-full h-auto"
-        />
-      </section>
+        <motion.div
+          className="md:w-1/2 flex justify-center items-center"
+          variants={scaleUp}
+        >
+          <div className="rounded-3xl shadow-xl bg-white/80 p-4">
+            <Image
+              src="/Queersource.svg"
+              alt="Queersource logo"
+              width={380}
+              height={380}
+              className="max-w-full h-auto rounded-2xl"
+              priority
+            />
+          </div>
+        </motion.div>
+      </motion.section>
 
-      <section className="py-20 bg-white px-6 text-center">
-        <h1 className="text-3xl font-bold mb-4 text-black">How We Can Help</h1>
-        <p className="mb-12 max-w-3xl mx-auto text-gray-600">
+      <motion.section
+        className="container mx-auto py-20 px-4 text-center"
+        variants={fadeIn}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <motion.h1
+          className="text-3xl font-extrabold mb-4 text-pink-700 drop-shadow-sm"
+          variants={slideUp}
+          id="services"
+        >
+          How We Can Help
+        </motion.h1>
+        <motion.p
+          className="mb-12 max-w-3xl mx-auto text-gray-700"
+          variants={slideUp}
+        >
           Queersource offers a variety of resources and support services for the LGBTQ+ community.
-        </p>
+        </motion.p>
 
-        <section className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        <motion.section className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {[
             {
-              symbol: <FiBookOpen className="text-pink-600 text-2xl" />,
+              symbol: <FiBookOpen className="text-pink-600 text-3xl mb-2" />,
               title: "Educational Resources",
               description:
                 "Access guides, articles, and information about LGBTQ+ identities, coming out, health, and more.",
               button: "Browse Resources",
             },
             {
-              symbol: <FiBookmark className="text-pink-600 text-2xl" />,
+              symbol: <FiBookmark className="text-pink-600 text-3xl mb-2" />,
               title: "Resource Directory",
               description:
                 "Find LGBTQ+ friendly organizations, hotlines, and support services in your area through our comprehensive directory.",
               button: "Browse Directory",
             },
             {
-              symbol: <FiUsers className="text-pink-600 text-2xl" />,
+              symbol: <FiUsers className="text-pink-600 text-3xl mb-2" />,
               title: "Community Forums",
               description:
                 "Connect with others in the LGBTQ+ community to share experiences, ask questions, and find support.",
               button: "Join Community",
             },
           ].map((card, idx) => (
-            <section key={idx} className="bg-white rounded-xl shadow p-6">
-              <section className="flex items-center justify-center gap-2 mb-4">
-                <span className="text-pink-600 text-2xl flex items-center">{card.symbol}</span>
-                <h3 className="text-xl font-bold leading-none">{card.title}</h3>
-              </section>
-              
-              <p className="mb-6">{card.description}</p>
-              <button className="text-black font-semibold">{card.button}</button>
-            </section>
+            <Card key={idx} {...card} />
           ))}
-        </section>
-      </section>
+        </motion.section>
+      </motion.section>
 
-        {/* Local resources section */}
-      <section className="bg-gray-100 py-20 px-6 ml-6">
-        <section className="flex flex-col-reverse md:flex-row justify-between items-center max-w-6xl mx-auto">
-          <section className="text-center md:text-left py-10 md:py-20 px-6 md:pr-10">
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 text-black">
+      <motion.section
+        className="bg-gray-50 py-20 px-4"
+        variants={fadeIn}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <section className="container mx-auto flex flex-col-reverse md:flex-row items-center justify-between max-w-6xl gap-10">
+          <section className="md:w-1/2 text-center md:text-left flex flex-col gap-6">
+            <motion.h1
+              className="text-3xl md:text-5xl font-extrabold mb-2 text-pink-700 drop-shadow-sm"
+              variants={slideUp}
+              id="resources"
+            >
               Find Local Resources
-            </h1>
-            <p className="text-lg md:text-xl max-w-2xl mb-8 text-gray-600 mx-auto md:mx-0">
+            </motion.h1>
+            <motion.p
+              className="text-lg md:text-xl max-w-2xl mb-4 text-gray-700"
+              variants={slideUp}
+            >
               We&apos;ve compiled a directory of trusted LGBTQ+ friendly organizations, community centers, and support groups across the country.
-            </p>
-            <button className="bg-pink-600 text-white font-semibold px-6 py-3 rounded-md">
-              Get Support Now
-            </button>
+            </motion.p>
+            <Button text="Get Support Now" primary onClick={() => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })} />
           </section>
 
-          <Image
-            src="/400x400Picture.svg"
-            alt="400x400"
-            width={400}
-            height={400}
-            className="mb-10 md:mb-0 max-w-full h-auto"
-          />
+          <motion.div
+            className="md:w-1/2 flex justify-center items-center"
+            variants={scaleUp}
+          >
+            <div className="rounded-3xl shadow-xl bg-white/80 p-4">
+              <Image
+                src="/400x400Picture.svg"
+                alt="LGBTQ+ support illustration"
+                width={380}
+                height={380}
+                className="max-w-full h-auto rounded-2xl"
+                priority
+              />
+            </div>
+          </motion.div>
         </section>
-      </section>
+      </motion.section>
 
-      <section className="py-20 bg-white px-6 text-center">
-      <h1 className="text-3xl font-bold mb-4 text-black">Get Involved</h1>
-      <p className="mb-12 max-w-3xl mx-auto text-gray-600">
-        Help us grow Queersource and make a difference in the LGBTQ+ community.
-      </p>
+      <motion.section
+        className="container mx-auto py-20 px-4 text-center"
+        variants={fadeIn}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <motion.h1
+          className="text-3xl font-extrabold mb-4 text-pink-700 drop-shadow-sm"
+          variants={slideUp}
+          id="get-involved"
+        >
+          Get Involved
+        </motion.h1>
+        <motion.p
+          className="mb-12 max-w-3xl mx-auto text-gray-700"
+          variants={slideUp}
+        >
+          Help us grow Queersource and make a difference in the LGBTQ+ community.
+        </motion.p>
 
-      <section className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
+        <motion.section className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {[
             {
-              symbol: <IoMdHeartEmpty className="text-pink-600 text-2xl" />,
+              symbol: <IoMdHeartEmpty className="text-pink-600 text-3xl mb-2" />,
               title: "Volunteer",
               description:
-                " Share your skills and time to help build our resource library, moderate forums, or contribute to our website.",
+                "Share your skills and time to help build our resource library, moderate forums, or contribute to our website.",
               button: "Learn More",
             },
             {
-              symbol: <IoShieldOutline className="text-pink-600 text-2xl" />,
+              symbol: <IoShieldOutline className="text-pink-600 text-3xl mb-2" />,
               title: "Become an Ally",
               description:
-                " Learn how to be a be er ally to the LGBTQ+ community and help create safe, inclusive spaces.",
+                "Learn how to be a better ally to the LGBTQ+ community and help create safe, inclusive spaces.",
               button: "Get Resources",
             },
             {
-              symbol: <AiFillContacts className="text-pink-600 text-2xl" />,
+              symbol: <AiFillContacts className="text-pink-600 text-3xl mb-2" />,
               title: "Submit Resources",
               description:
-                " Help us expand our directory by submitting LGBTQ+ friendly resources, organizations, and events in your area.",
+                "Help us expand our directory by submitting LGBTQ+ friendly resources, organizations, and events in your area.",
               button: "Join Community",
             },
           ].map((card, idx) => (
-            <section key={idx} className="bg-white rounded-xl shadow p-6">
-              <section className="flex items-center justify-center gap-2 mb-4">
-                <span className="text-pink-600 text-2xl flex items-center">{card.symbol}</span>
-                <h3 className="text-xl font-bold leading-none">{card.title}</h3>
-              </section>
-              
-              <p className="mb-6">{card.description}</p>
-              <button className="text-black font-semibold">{card.button}</button>
-            </section>
+            <Card key={idx} {...card} />
           ))}
-        </section>
-      </section>
+        </motion.section>
+      </motion.section>
 
-
-      {/* Community section */}
-      <section className="bg-[#fcedf3] py-20 px-6 text-center ml-6">
-        <section className="max-w-6xl mx-auto">
-          <h2 className="text-3xl text-black font-bold mb-4">Join Our Community</h2>
-          <p className="mb-8 text-gray-600 max-w-2xl mx-auto">
+      <motion.section
+        className="bg-[#fcedf3] py-20 px-4 text-center"
+        variants={fadeIn}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
+        <section className="container mx-auto max-w-6xl">
+          <motion.h2
+            className="text-3xl text-pink-700 font-extrabold mb-4 drop-shadow-sm"
+            variants={slideUp}
+            id="community"
+          >
+            Join Our Community
+          </motion.h2>
+          <motion.p
+            className="mb-8 text-gray-700 max-w-2xl mx-auto"
+            variants={slideUp}
+          >
             Be part of building a supportive space for the LGBTQ+ community. Sign up for updates as we grow.
-          </p>
-          <section className="flex flex-wrap justify-center gap-4">
-            <button className="bg-pink-600 text-white font-semibold px-6 py-3 rounded-md">
-              Sign Up for Updates
-            </button>
-            <button className="bg-white border font-bold border-gray-300 px-6 py-3 rounded-md">
-              Learn More
-            </button>
-          </section>
+          </motion.p>
+            <motion.section
+              className="flex flex-wrap justify-center gap-4"
+              variants={slideUp}
+            >
+              <Button
+              text="Sign Up for Updates"
+              primary
+              onClick={() => setShowCustomAlert(true)}
+              />
+              <Button
+              text="Learn More"
+              onClick={() =>
+                document
+                .getElementById('get-involved')
+                ?.scrollIntoView({ behavior: 'smooth' })
+              }
+              />
+            </motion.section>
+            {showCustomAlert && (
+              <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/40">
+              <div className="bg-white rounded-xl shadow-lg p-8 max-w-sm w-full text-center">
+                <h3 className="text-xl font-bold mb-2 text-pink-700">Thank you for your interest!</h3>
+                <p className="mb-4 text-gray-700">
+                Sign up for updates will be available soon. Stay tuned!
+                </p>
+                <Button text="Close" onClick={() => setShowCustomAlert(false)} primary />
+              </div>
+              </div>
+            )}
         </section>
-      </section>
+      </motion.section>
 
-      <footer className="bg-white border-t text-gray-600 text-sm py-6 border-gray-300">
-        <section className="flex justify-between items-center w-full max-w-6xl mx-auto px-4">
-          
-          <section className="flex items-center gap-2">
+      <footer className="bg-white border-t text-gray-500 text-sm py-6 border-gray-200">
+        <section className="container mx-auto flex flex-col md:flex-row justify-between items-center w-full max-w-6xl px-4 gap-4">
+          <motion.section
+            className="flex items-center gap-2"
+            variants={fadeIn}
+          >
             <IoMdHeartEmpty className="text-pink-600 text-2xl" />
-            <span className="text-sm font-bold text-black">
+            <span className="text-sm font-bold text-pink-700">
               &copy; 2025 Thomas King. All rights reserved.
             </span>
-          </section>
+          </motion.section>
 
-          <section className="flex items-center gap-2 text-sm">
-            <a href="#" className="underline">Privacy Policy</a>
+          <motion.section
+            className="flex items-center gap-2 text-sm"
+            variants={fadeIn}
+          >
+            <a href="#" className="underline hover:text-pink-600 transition-colors">Privacy Policy</a>
             <span>|</span>
-            <a href="#" className="underline">Terms of Service</a>
+            <a href="#" className="underline hover:text-pink-600 transition-colors">Terms of Service</a>
             <span>|</span>
-            <a href="#" className="underline">Contact Us</a>
-          </section>
-
+            <a href="#" className="underline hover:text-pink-600 transition-colors">Contact Us</a>
+          </motion.section>
         </section>
       </footer>
-
-
-    </main>
+    </motion.main>
   );
 }

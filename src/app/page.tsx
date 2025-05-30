@@ -1,8 +1,10 @@
 "use client";
+import { useState, FormEvent } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 
 export default function ComingSoon() {
+  const [email, setEmail] = useState("");
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-500 via-pink-500 to-red-500 text-white p-8">
       <motion.div
@@ -41,46 +43,49 @@ export default function ComingSoon() {
           transition={{ delay: 0.5, duration: 0.8 }}
         >
           <p className="text-lg font-medium mb-4">
-        We&apos;re launching soon! Stay tuned.
+            We&apos;re launching soon! Stay tuned.
           </p>
-          <form className="flex flex-col items-center gap-4">
-        <input
-          type="email"
-          placeholder="Enter your email"
-          className="px-4 py-2 rounded-lg text-gray-800 bg-white w-full sm:w-auto shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-        />
-        <button
-          type="submit"
-          className="px-6 py-2 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition shadow-md"
-          onClick={async (e) => {
-            e.preventDefault();
-            const emailInput = (e.target as HTMLElement)
-          .closest("form")
-          ?.querySelector('input[type="email"]') as HTMLInputElement;
-            if (emailInput && emailInput.value) {
-          try {
-            const response = await fetch("/api/notify", {
-              method: "POST",
-              headers: {
-            "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ email: emailInput.value }),
-            });
-            if (response.ok) {
-              alert("Thank you! You will be notified.");
-            } else {
-              alert("Something went wrong. Please try again.");
-            }
-          } catch {
-            alert("An error occurred. Please try again.");
-          }
-            } else {
-          alert("Please enter a valid email address.");
-            }
-          }}
-        >
-          Notify Me
-        </button>
+          <form
+            className="flex flex-col items-center gap-4"
+            onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+              e.preventDefault();
+              if (email) {
+                try {
+                  const response = await fetch("/api/notify", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email }),
+                  });
+                  if (response.ok) {
+                    alert("Thank you! You will be notified.");
+                    setEmail(""); // Clear input on success
+                  } else {
+                    alert("Something went wrong. Please try again.");
+                  }
+                } catch {
+                  alert("An error occurred. Please try again.");
+                }
+              } else {
+                alert("Please enter a valid email address.");
+              }
+            }}
+          >
+            <input
+              type="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required // Basic HTML5 validation
+              className="px-4 py-2 rounded-lg text-gray-800 bg-white w-full sm:w-auto shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500"
+            />
+            <button
+              type="submit"
+              className="px-6 py-2 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition shadow-md"
+            >
+              Notify Me
+            </button>
           </form>
         </motion.div>
       </motion.div>
